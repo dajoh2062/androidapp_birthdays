@@ -10,5 +10,5 @@ data class Person(
     val id: Int = 0,
     val name: String,
     val phone: String,
-    val birthDate: String
+    val birthday: String
 )

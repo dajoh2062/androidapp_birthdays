@@ -2,6 +2,7 @@ package com.example.dajoh2062_oblig2.ui.navigation
 
 
 import androidx.compose.runtime.Composable
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -11,6 +12,7 @@ import com.example.dajoh2062_oblig2.ui.screens.EditFriendScreen
 import com.example.dajoh2062_oblig2.ui.screens.AddFriendScreen
 import com.example.dajoh2062_oblig2.ui.screens.PreferencesScreen
 import com.example.dajoh2062_oblig2.ui.screens.HomeScreen
+import com.example.dajoh2062_oblig2.ui.viewmodel.PersonViewModel
 
 // Navigasjonsgraf for applikasjonen. Inneholder alle skjermbildene og rutene deres.
 // Bruker NavHostController til å navigere mellom skjermbildene, som vist i canvas materialet.
@@ -22,21 +24,21 @@ fun MyApp(){
 }
 
 @Composable
-fun NavigationGraph(navController: NavHostController) {
+fun NavigationGraph(navController: NavHostController, viewModel: PersonViewModel =viewModel()) {
     // Første siden er start-skjermen.
     NavHost(navController = navController, startDestination = "home")
     {
-
         // Navigasjonsruter til de fire skjermene i prosjektet.
         composable("home") {
-            HomeScreen(  navController = navController,
+            HomeScreen(  navController = navController, viewModel=viewModel,
                 friends = listOf(
-                    Person(name = "Johan", phone = "12345678", birthDate = "12.03.2000"),
-                    Person(name = "Maria", phone = "98765432", birthDate = "05.09.1999")
+                    Person(name= "Johan", phone = "12345678", birthday = "12.03.2000"),
+                    Person(name = "Maria", phone = "98765432", birthday = "05.09.1999")
                 ),
                 onEdit = {},
                 onDelete = {},
-                onAddNew = {})
+                onAddNew = {},
+                onSettings = {})
         }
         composable("preferences") {
             PreferencesScreen(navController = navController)
