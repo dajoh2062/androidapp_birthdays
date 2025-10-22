@@ -85,7 +85,6 @@ fun HomeScreen(
                 onClick = onSettings,
                 modifier = Modifier
                     .align(Alignment.BottomStart)
-                    .padding(start = 24.dp, bottom = 32.dp)
             )
 
         }
