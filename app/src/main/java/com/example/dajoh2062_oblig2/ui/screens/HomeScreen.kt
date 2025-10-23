@@ -37,6 +37,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
@@ -84,9 +85,10 @@ fun HomeScreen(
         floatingActionButton = { AddButton(modifier = modifier, onClick = onAddNew) }
     ) { padding ->
         Column(Modifier.fillMaxSize().padding(padding)) {
+            Spacer(Modifier.height(16.dp))
             Text(
                 text = "Venner (${friends.size})",
-                style = MaterialTheme.typography.titleLarge,
+                style = MaterialTheme.typography.titleLarge.copy(fontSize = 24.sp),
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp)
             )
         Box(

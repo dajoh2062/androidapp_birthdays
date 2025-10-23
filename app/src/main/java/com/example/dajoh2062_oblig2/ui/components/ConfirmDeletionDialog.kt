@@ -13,16 +13,16 @@ fun ConfirmDeletionDialog(
 ) {
     AlertDialog(
         onDismissRequest = onCancel,
-        title = { Text("Confirm Deletion") },
-        text = { Text("Are you sure you want to delete $friendName?") },
+        title = { Text(text="Confirm Deletion") },
+        text = { Text(text="Are you sure you want to delete $friendName?") },
         confirmButton = {
             TextButton(onClick = onConfirm) {
-                Text("Delete")
+                Text(text="Delete")
             }
         },
         dismissButton = {
             TextButton(onClick = onCancel) {
-                Text("Cancel")
+                Text(text="Cancel")
             }
         }
     )

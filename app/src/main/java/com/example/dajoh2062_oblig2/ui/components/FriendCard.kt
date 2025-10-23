@@ -29,9 +29,22 @@ fun FriendCard(
         elevation = CardDefaults.cardElevation(4.dp)
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
-            Text(friend.name, style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold)
-            Text("Telefon: ${friend.phone}")
-            Text("Fødselsdato: ${friend.birthday}")
+            Text(
+                text=friend.name,
+                style = MaterialTheme.typography.titleLarge,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(bottom=8.dp)
+            )
+            Text(
+                text="Telefon: ${friend.phone}",
+                style =  MaterialTheme.typography.bodyLarge,
+                modifier = Modifier.padding(bottom=8.dp)
+                )
+            Text(
+                text="Fødselsdato: ${friend.birthday}",
+                style =  MaterialTheme.typography.bodyLarge,
+                modifier = Modifier.padding(bottom=8.dp)
+                )
 
             Spacer(Modifier.height(8.dp))
 
@@ -40,10 +53,15 @@ fun FriendCard(
                 horizontalArrangement = Arrangement.End
             ) {
                 TextButton(onClick = { onEdit(friend) }) {
-                    Text("Endre")
+                    Text(
+                        text="Endre"
+                        )
                 }
                 TextButton(onClick = { onDelete(friend) }) {
-                    Text("Slett", color = MaterialTheme.colorScheme.error)
+                    Text(
+                        text="Slett",
+                        color = MaterialTheme.colorScheme.error
+                        )
                 }
             }
         }

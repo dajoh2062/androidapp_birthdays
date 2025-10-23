@@ -28,21 +28,21 @@ fun FriendForm(
         OutlinedTextField(
             value = name,
             onValueChange = { name = it },
-            label = { Text("Name") },
+            label = { Text(text="Name") },
             modifier = Modifier.fillMaxWidth()
         )
 
         OutlinedTextField(
             value = phone,
             onValueChange = { phone = it },
-            label = { Text("Phone") },
+            label = { Text(text="Phone") },
             modifier = Modifier.fillMaxWidth()
         )
 
         OutlinedTextField(
             value = birthday,
             onValueChange = { birthday = it },
-            label = { Text("Birthday") },
+            label = { Text(text="Birthday") },
             modifier = Modifier.fillMaxWidth()
         )
 
@@ -65,7 +65,7 @@ fun FriendForm(
             },
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text(if (isEditMode) "Save Changes" else "Add Friend")
+            Text(text=if (isEditMode) "Save Changes" else "Add Friend")
         }
     }
 }
