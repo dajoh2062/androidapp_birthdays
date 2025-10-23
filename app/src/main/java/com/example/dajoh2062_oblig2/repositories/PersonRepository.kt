@@ -1,27 +1,22 @@
 package com.example.dajoh2062_oblig2.repositories
 
 import com.example.dajoh2062_oblig2.data.Person
+import com.example.dajoh2062_oblig2.data.PersonDao
+import kotlinx.coroutines.flow.Flow
 
-class PersonRepository {
+class PersonRepository(private val dao: PersonDao) {
 
-    private val people = mutableListOf(
-        Person(name = "Josef", phone = "12345678", birthday = "12.03.2000"),
-        Person(name = "Maria", phone = "98765432", birthday = "05.09.1999")
-    )
+    val allFriends: Flow<List<Person>> = dao.getAllPersons()
 
-    fun getPeople(): List<Person> {
-        return people
+    suspend fun addPerson(person: Person) {
+        dao.insert(person)
     }
 
-    fun addPerson(person: Person) {
-        people.add(person)
+    suspend fun updatePerson(person: Person) {
+        dao.update(person)
     }
 
-    fun removePerson(person: Person) {
-        people.remove(person)
-    }
-
-    fun findPerson(name: String): Person? {
-        return people.find { it.name == name }
+    suspend fun removePerson(person: Person) {
+        dao.delete(person)
     }
 }

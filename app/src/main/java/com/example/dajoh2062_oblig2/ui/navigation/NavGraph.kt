@@ -38,7 +38,6 @@ fun NavigationGraph(navController: NavHostController, sharedViewModel: PersonVie
                     sharedViewModel.selectPerson(person)   // <--- SET selectedPerson first
                     navController.navigate("edit")         // <--- THEN navigate
                 },
-                onDelete = { person -> sharedViewModel.removePerson(person) },
                 onAddNew = { navController.navigate("add") },
                 onSettings = { navController.navigate("preferences") }
             )
