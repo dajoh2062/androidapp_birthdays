@@ -34,9 +34,9 @@ fun NavigationGraph(navController: NavHostController, sharedViewModel: PersonVie
             HomeScreen(
                 navController = navController,
                 viewModel = sharedViewModel,
-                onEdit = { person -> navController.navigate("editFriend") },
+                onEdit = { person -> navController.navigate("edit") },
                 onDelete = { person -> sharedViewModel.removePerson(person) },
-                onAddNew = { navController.navigate("addFriend") },
+                onAddNew = { navController.navigate("add") },
                 onSettings = { navController.navigate("preferences") }
             )
         }
