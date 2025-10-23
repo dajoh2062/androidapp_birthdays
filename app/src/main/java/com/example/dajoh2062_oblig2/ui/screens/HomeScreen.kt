@@ -29,13 +29,17 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Icon
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
 import com.example.dajoh2062_oblig2.ui.components.AddButton
+import com.example.dajoh2062_oblig2.ui.components.ConfirmDeletionDialog
 import com.example.dajoh2062_oblig2.ui.components.FriendCard
 import com.example.dajoh2062_oblig2.ui.components.SettingsButton
 import com.example.dajoh2062_oblig2.ui.viewmodel.PersonViewModel
@@ -44,14 +48,36 @@ import com.example.dajoh2062_oblig2.ui.viewmodel.PersonViewModel
 @Composable
 fun HomeScreen(
     navController: NavController,
-    viewModel: ViewModel,
-    friends: List<Person>,
+    viewModel: PersonViewModel,
     onEdit: (Person) -> Unit,
     onDelete: (Person) -> Unit,
     onAddNew: () -> Unit,
     onSettings: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    // For now, use your existing list from the ViewModel (no Room yet)
+    val friends = viewModel.people
+
+    // State for delete confirmation dialog
+    var showDialog by remember { mutableStateOf(false) }
+    var selectedFriend by remember { mutableStateOf<Person?>(null) }
+
+    // Show confirmation popup when needed
+    if (showDialog && selectedFriend != null) {
+        ConfirmDeletionDialog(
+            friendName = selectedFriend!!.name,
+            onConfirm = {
+                viewModel.removePerson(selectedFriend!!)
+                showDialog = false
+                selectedFriend = null
+            },
+            onCancel = {
+                showDialog = false
+                selectedFriend = null
+            }
+        )
+    }
+
     Scaffold(
         floatingActionButton = {
             AddButton(
@@ -60,7 +86,6 @@ fun HomeScreen(
             )
         }
     ) { padding ->
-
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -76,41 +101,33 @@ fun HomeScreen(
                     FriendCard(
                         friend = friend,
                         onEdit = onEdit,
-                        onDelete = onDelete
+                        onDelete = {
+                            selectedFriend = friend
+                            showDialog = true
+                        }
                     )
                 }
             }
 
             SettingsButton(
                 onClick = onSettings,
-                modifier = Modifier
-                    .align(Alignment.BottomStart)
+                modifier = Modifier.align(Alignment.BottomStart)
             )
-
         }
     }
 }
-
-
-
-
 @Preview(showBackground = true)
 @Composable
 fun HomeScreenPreview() {
     val navController = rememberNavController()
-    val sampleFriends = listOf(
-        Person(name = "Johan", phone = "12345678", birthday = "12.03.2000"),
-        Person(name = "Maria", phone = "98765432", birthday = "05.09.1999")
-    )
-    val fakeviewModel= remember{PersonViewModel()}
+    val fakeViewModel = remember { PersonViewModel() }
 
     HomeScreen(
         navController = navController,
-        viewModel= fakeviewModel,
-        friends = sampleFriends,
+        viewModel = fakeViewModel,
         onEdit = {},
         onDelete = {},
         onAddNew = {},
-        onSettings={}
+        onSettings = {}
     )
 }

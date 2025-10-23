@@ -20,34 +20,42 @@ import com.example.dajoh2062_oblig2.ui.viewmodel.PersonViewModel
 @Composable
 fun MyApp(){
     val navController = rememberNavController()
-    NavigationGraph(navController = navController)
+    val sharedViewModel: PersonViewModel = viewModel()
+    NavigationGraph(navController = navController, sharedViewModel = sharedViewModel)
 }
 
 @Composable
-fun NavigationGraph(navController: NavHostController, viewModel: PersonViewModel =viewModel()) {
+fun NavigationGraph(navController: NavHostController, sharedViewModel: PersonViewModel) {
     // Første siden er start-skjermen.
     NavHost(navController = navController, startDestination = "home")
     {
         // Navigasjonsruter til de fire skjermene i prosjektet.
         composable("home") {
-            HomeScreen(  navController = navController, viewModel=viewModel,
-                friends = listOf(
-                    Person(name= "Johan", phone = "12345678", birthday = "12.03.2000"),
-                    Person(name = "Maria", phone = "98765432", birthday = "05.09.1999")
-                ),
-                onEdit = {},
-                onDelete = {},
-                onAddNew = {},
-                onSettings = {})
+            HomeScreen(
+                navController = navController,
+                viewModel = sharedViewModel,
+                onEdit = { person -> navController.navigate("editFriend") },
+                onDelete = { person -> sharedViewModel.removePerson(person) },
+                onAddNew = { navController.navigate("addFriend") },
+                onSettings = { navController.navigate("preferences") }
+            )
         }
+
         composable("preferences") {
             PreferencesScreen(navController = navController)
         }
         composable("edit") {
-            EditFriendScreen(navController = navController)
+            EditFriendScreen(
+                navController = navController,
+                viewModel = sharedViewModel,
+            )
         }
+
         composable("add") {
-            AddFriendScreen(navController = navController)
+            AddFriendScreen(
+                navController = navController,
+                viewModel = sharedViewModel
+            )
         }
     }
 }

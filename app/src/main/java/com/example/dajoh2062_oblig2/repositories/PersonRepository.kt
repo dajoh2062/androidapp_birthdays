@@ -4,24 +4,23 @@ import com.example.dajoh2062_oblig2.data.Person
 
 class PersonRepository {
 
-    private val people = mutableListOf<Person>()
+    private val people = mutableListOf(
+        Person(name = "Josef", phone = "12345678", birthday = "12.03.2000"),
+        Person(name = "Maria", phone = "98765432", birthday = "05.09.1999")
+    )
 
-    // Henter alle personer
     fun getPeople(): List<Person> {
         return people
     }
 
-    // Legger til en ny person
     fun addPerson(person: Person) {
         people.add(person)
     }
 
-    // Fjerner en person
     fun removePerson(person: Person) {
         people.remove(person)
     }
 
-    // Finner person basert på navn (valgfritt)
     fun findPerson(name: String): Person? {
         return people.find { it.name == name }
     }
