@@ -28,7 +28,9 @@ import com.example.dajoh2062_oblig2.data.Person
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -79,13 +81,14 @@ fun HomeScreen(
     }
 
     Scaffold(
-        floatingActionButton = {
-            AddButton(
-                modifier = modifier,
-                onClick = onAddNew
-            )
-        }
+        floatingActionButton = { AddButton(modifier = modifier, onClick = onAddNew) }
     ) { padding ->
+        Column(Modifier.fillMaxSize().padding(padding)) {
+            Text(
+                text = "Venner (${friends.size})",
+                style = MaterialTheme.typography.titleLarge,
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp)
+            )
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -115,7 +118,7 @@ fun HomeScreen(
             )
         }
     }
-}
+}}
 @Preview(showBackground = true)
 @Composable
 fun HomeScreenPreview() {
