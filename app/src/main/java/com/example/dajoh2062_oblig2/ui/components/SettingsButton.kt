@@ -21,10 +21,9 @@ fun SettingsButton(
     FloatingActionButton(
         onClick = onClick,
         containerColor = MaterialTheme.colorScheme.primary,
-        shape = RoundedCornerShape(16.dp), // same rounded shape as the Add button
+        shape = RoundedCornerShape(16.dp),
         modifier = modifier
-            .padding(16.dp)
-            .size(64.dp),
+            .size(64.dp)
     ) {
         Icon(
             imageVector = Icons.Default.Settings,

@@ -8,6 +8,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -34,10 +35,8 @@ fun HomeScreen(
     onSettings: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    // ✅ Collect the flow of people from the database
     val friends by viewModel.people.collectAsState()
 
-    // Delete confirmation state
     var showDialog by remember { mutableStateOf(false) }
     var selectedFriend by remember { mutableStateOf<Person?>(null) }
 
@@ -57,10 +56,26 @@ fun HomeScreen(
     }
 
     Scaffold(
-        floatingActionButton = { AddButton(modifier = modifier, onClick = onAddNew) }
+        floatingActionButton = {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start=32.dp),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                SettingsButton(
+                    modifier = Modifier,
+                    onClick = onSettings
+                )
+                AddButton(
+                    modifier = Modifier,
+                    onClick = onAddNew
+                )
+            }
+        }
     ) { padding ->
         Column(
-            Modifier
+            modifier = Modifier
                 .fillMaxSize()
                 .padding(padding)
         ) {
@@ -71,50 +86,38 @@ fun HomeScreen(
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp)
             )
 
-            Box(
+            LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(padding)
+                    .padding(horizontal = 16.dp),
+                verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
-                LazyColumn(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(16.dp),
-                    verticalArrangement = Arrangement.spacedBy(12.dp)
-                ) {
-                    items(friends) { friend ->
-                        FriendCard(
-                            friend = friend,
-                            onEdit = onEdit,
-                            onDelete = {
-                                selectedFriend = friend
-                                showDialog = true
-                            }
-                        )
-                    }
+                items(friends) { friend ->
+                    FriendCard(
+                        friend = friend,
+                        onEdit = onEdit,
+                        onDelete = {
+                            selectedFriend = friend
+                            showDialog = true
+                        }
+                    )
                 }
-
-                SettingsButton(
-                    onClick = onSettings,
-                    modifier = Modifier.align(Alignment.BottomStart)
-                )
             }
         }
     }
 }
 
+
 @Preview(showBackground = true)
 @Composable
 fun HomeScreenPreview() {
-    val context = LocalContext.current // <-- move this outside 'remember'
+    val context = LocalContext.current
 
-    // Use fake / in-memory data instead of Application context
     val fakeRepository = remember {
         val db = Room.inMemoryDatabaseBuilder(context, AppDatabase::class.java).build()
         PersonRepository(db.personDao())
     }
 
-    // Pass a dummy Application to satisfy constructor
     val fakeApplication = Application()
     val viewModel = remember { PersonViewModel(fakeRepository, fakeApplication) }
 

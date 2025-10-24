@@ -1,6 +1,7 @@
 package com.example.dajoh2062_oblig2.ui.components
 
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.FloatingActionButton
@@ -21,7 +22,8 @@ fun AddButton(
     FloatingActionButton(
         onClick = onClick,
         containerColor = MaterialTheme.colorScheme.primary,
-        modifier = Modifier.size(64.dp)
+        shape = RoundedCornerShape(16.dp),
+        modifier = modifier.size(64.dp)
     ) {
         Icon(
             imageVector = Icons.Default.Add,
