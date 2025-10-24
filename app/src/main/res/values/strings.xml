@@ -1,3 +1,27 @@
 <resources>
     <string name="app_name">dajoh2062_oblig2</string>
+    <string name="cancel">Avbryt</string>
+    <string name="delete">Slett</string>
+    <string name="save">Lagre</string>
+    <string name="add">Legg til</string>
+    <string name="edit">Endre</string>
+    <string name="settings">Innstillinger</string>
+    <string name="confirm">Bekreft</string>
+    <string name="confirm_deletion">Bekreft sletting</string>
+    <string name="are_you_sure_delete">Er du sikker på at du vil slette %1$s?</string>
+    <string name="home_title">Venner (%1$d)</string>
+    <string name="add_friend_title">Legg til venn</string>
+    <string name="edit_friend_title">Endre venn</string>
+    <string name="preferences_title">Preferanser</string>
+    <string name="no_person_selected">Ingen person valgt for redigering.</string>
+    <string name="label_name">Navn</string>
+    <string name="label_phone">Telefonnummer</string>
+    <string name="label_birthday">Fødselsdato (dd-mm-yyyy)</string>
+    <string name="add_friend">Legg til venn</string>
+    <string name="save_changes">Lagre endringer</string>
+    <string name="validation_name">Navn kan kun inneholde bokstaver og mellomrom</string>
+    <string name="validation_phone">Telefonnummer må være minst 8 sifre og kun tall</string>
+    <string name="validation_birthday">Dato må være på formatet dd-mm-yyyy</string>
+    <string name="phone_label">Telefon: %1$s</string>
+    <string name="birthday_label">Fødselsdato: %1$s</string>
 </resources>

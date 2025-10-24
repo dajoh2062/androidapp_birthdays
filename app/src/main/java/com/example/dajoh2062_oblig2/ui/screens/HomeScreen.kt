@@ -7,11 +7,13 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import androidx.room.Room
+import com.example.dajoh2062_oblig2.R
 import com.example.dajoh2062_oblig2.data.AppDatabase
 import com.example.dajoh2062_oblig2.data.Person
 import com.example.dajoh2062_oblig2.repositories.PersonRepository
@@ -34,14 +36,14 @@ fun HomeScreen(
 ) {
     val friends by viewModel.people.collectAsState()
 
-    var showDialog by remember { mutableStateOf(value=false) }
-    var selectedFriend by remember { mutableStateOf<Person?>(value=null) }
+    var showDialog by remember { mutableStateOf(value = false) }
+    var selectedFriend by remember { mutableStateOf<Person?>(value = null) }
 
     if (showDialog && selectedFriend != null) {
         ConfirmDeletionDialog(
             friendName = selectedFriend!!.name,
             onConfirm = {
-                viewModel.removePerson(person=selectedFriend!!)
+                viewModel.removePerson(person = selectedFriend!!)
                 showDialog = false
                 selectedFriend = null
             },
@@ -57,7 +59,7 @@ fun HomeScreen(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(start=32.dp),
+                    .padding(start = 32.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 SettingsButton(
@@ -74,11 +76,11 @@ fun HomeScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(paddingValues=padding)
+                .padding(paddingValues = padding)
         ) {
-            Spacer(Modifier.height(height=16.dp))
+            Spacer(modifier = Modifier.height(height = 16.dp))
             Text(
-                text = "Venner (${friends.size})",
+                text = stringResource(id = R.string.home_title, formatArgs = arrayOf(friends.size)),
                 style = MaterialTheme.typography.titleLarge.copy(fontSize = 24.sp),
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp)
             )
@@ -87,9 +89,9 @@ fun HomeScreen(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(horizontal = 16.dp),
-                verticalArrangement = Arrangement.spacedBy(space=12.dp)
+                verticalArrangement = Arrangement.spacedBy(space = 12.dp)
             ) {
-                items(items=friends) { friend ->
+                items(items = friends) { friend ->
                     FriendCard(
                         friend = friend,
                         onEdit = onEdit,
@@ -104,19 +106,21 @@ fun HomeScreen(
     }
 }
 
-
 @Preview(showBackground = true)
 @Composable
 fun HomeScreenPreview() {
     val context = LocalContext.current
 
     val fakeRepository = remember {
-        val db = Room.inMemoryDatabaseBuilder(context, klass=AppDatabase::class.java).build()
-        PersonRepository(dao=db.personDao())
+        val db = Room.inMemoryDatabaseBuilder(
+            context = context,
+            klass = AppDatabase::class.java
+        ).build()
+        PersonRepository(dao = db.personDao())
     }
 
     val fakeApplication = Application()
-    val viewModel = remember { PersonViewModel(fakeRepository, fakeApplication) }
+    val viewModel = remember { PersonViewModel(repository = fakeRepository, application = fakeApplication) }
 
     val navController = rememberNavController()
     HomeScreen(

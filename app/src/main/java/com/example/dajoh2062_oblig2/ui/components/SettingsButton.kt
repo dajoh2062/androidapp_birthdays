@@ -9,7 +9,9 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.example.dajoh2062_oblig2.R
 
 @Composable
 fun SettingsButton(
@@ -19,14 +21,14 @@ fun SettingsButton(
     FloatingActionButton(
         onClick = onClick,
         containerColor = MaterialTheme.colorScheme.primary,
-        shape = RoundedCornerShape(size=16.dp),
-        modifier = modifier.size(size=64.dp)
+        shape = RoundedCornerShape(size = 16.dp),
+        modifier = modifier.size(size = 64.dp)
     ) {
         Icon(
             imageVector = Icons.Default.Settings,
-            contentDescription = "Settings",
+            contentDescription = stringResource(id = R.string.settings),
             tint = MaterialTheme.colorScheme.onPrimary,
-            modifier = Modifier.size(size=8.dp)
+            modifier = Modifier.size(size = 28.dp)
         )
     }
 }

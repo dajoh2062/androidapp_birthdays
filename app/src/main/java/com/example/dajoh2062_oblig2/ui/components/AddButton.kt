@@ -9,7 +9,9 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.example.dajoh2062_oblig2.R
 
 @Composable
 fun AddButton(
@@ -24,7 +26,7 @@ fun AddButton(
     ) {
         Icon(
             imageVector = Icons.Default.Add,
-            contentDescription = "Add",
+            contentDescription = stringResource(R.string.add),
             tint = MaterialTheme.colorScheme.onPrimary,
             modifier = Modifier.size(28.dp)
         )
