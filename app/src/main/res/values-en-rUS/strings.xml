@@ -29,6 +29,9 @@
     <string name="default_message_label">Default birthday message</string>
     <string name="save_preferences">Save preferences</string>
     <string name="message_placeholder_hint">You can use {navn} as a placeholder in the message. Example: "Happy birthday, {name}!"</string>
+    <string name="toast_sms_enabled">Automatic SMS enabled</string>
+    <string name="toast_sms_disabled">Automatic SMS disabled</string>
+    <string name="default_message">Happy birthday, {name}!</string>
 
 
 </resources>

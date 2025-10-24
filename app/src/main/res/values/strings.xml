@@ -28,6 +28,9 @@
     <string name="default_message_label">Standard bursdagsmelding</string>
     <string name="save_preferences">Lagre preferanser</string>
     <string name="message_placeholder_hint">Du kan bruke {navn} som plassholder i meldingen. Eksempel: "Gratulerer med dagen, {navn}!"</string>
+    <string name="toast_sms_enabled">Automatisk SMS aktivert</string>
+    <string name="toast_sms_disabled">Automatisk SMS deaktivert</string>
+    <string name="default_message">Gratulerer med dagen, {navn}!</string>
 
 
 </resources>

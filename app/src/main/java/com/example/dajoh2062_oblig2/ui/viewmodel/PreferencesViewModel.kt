@@ -3,15 +3,14 @@ package com.example.dajoh2062_oblig2.ui.viewmodel
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
-import android.telephony.SmsManager
-import android.util.Log
+import androidx.core.content.edit
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.dajoh2062_oblig2.MyApp
+import com.example.dajoh2062_oblig2.R
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import androidx.core.content.edit
-import com.example.dajoh2062_oblig2.MyApp
 
 class PreferencesViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -24,16 +23,17 @@ class PreferencesViewModel(application: Application) : AndroidViewModel(applicat
     private val prefs: SharedPreferences =
         application.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
 
-
     private val _smsEnabled = MutableStateFlow(prefs.getBoolean(KEY_SMS_ENABLED, false))
     val smsEnabled: StateFlow<Boolean> get() = _smsEnabled
 
     private val _defaultMessage = MutableStateFlow(
-        prefs.getString(KEY_DEFAULT_MESSAGE, "Gratulerer med dagen!") ?: "Gratulerer med dagen!"
+        prefs.getString(
+            KEY_DEFAULT_MESSAGE,
+            application.getString(R.string.default_message) // ⬅️ fallback from strings.xml
+        ) ?: application.getString(R.string.default_message)
     )
     val defaultMessage: StateFlow<String> get() = _defaultMessage
 
-    // --- Update functions ---
     fun setSmsEnabled(enabled: Boolean) {
         viewModelScope.launch {
             prefs.edit { putBoolean(KEY_SMS_ENABLED, enabled) }
@@ -57,21 +57,4 @@ class PreferencesViewModel(application: Application) : AndroidViewModel(applicat
 
     fun isSmsEnabled(): Boolean = _smsEnabled.value
     fun getDefaultMessage(): String = _defaultMessage.value
-
-    fun sendSms() {
-        val smsManager = SmsManager.getSmsManagerForSubscriptionId(
-            SmsManager.getDefaultSmsSubscriptionId()
-        )
-
-        smsManager.sendTextMessage(
-            "1234567890",   // destination phone number
-            null,           // service center (null = default)
-            "Hallo fra min app!",  // message text
-            null,           // sentIntent
-            null            // deliveryIntent
-        )
-
-        Log.d("SMS", "Sender SMS")
-    }
-
 }
