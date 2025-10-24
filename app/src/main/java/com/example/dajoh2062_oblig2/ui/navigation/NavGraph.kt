@@ -18,9 +18,8 @@ import com.example.dajoh2062_oblig2.ui.viewmodel.PersonViewModel
 // Bruker NavHostController til å navigere mellom skjermbildene, som vist i canvas materialet.
 
 @Composable
-fun MyApp(){
+fun MyApp(sharedViewModel: PersonViewModel) {
     val navController = rememberNavController()
-    val sharedViewModel: PersonViewModel = viewModel()
     NavigationGraph(navController = navController, sharedViewModel = sharedViewModel)
 }
 

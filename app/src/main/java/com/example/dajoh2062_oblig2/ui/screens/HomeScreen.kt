@@ -106,19 +106,19 @@ fun HomeScreen(
 @Preview(showBackground = true)
 @Composable
 fun HomeScreenPreview() {
-    val context = LocalContext.current
-    val app = context.applicationContext as Application
+    val context = LocalContext.current // <-- move this outside 'remember'
 
-    val db = remember {
-        Room.inMemoryDatabaseBuilder(app, AppDatabase::class.java).build()
+    // Use fake / in-memory data instead of Application context
+    val fakeRepository = remember {
+        val db = Room.inMemoryDatabaseBuilder(context, AppDatabase::class.java).build()
+        PersonRepository(db.personDao())
     }
-    val repository = remember { PersonRepository(db.personDao()) }
 
-    val viewModel = remember { PersonViewModel(repository, app) }
-
+    // Pass a dummy Application to satisfy constructor
+    val fakeApplication = Application()
+    val viewModel = remember { PersonViewModel(fakeRepository, fakeApplication) }
 
     val navController = rememberNavController()
-
     HomeScreen(
         navController = navController,
         viewModel = viewModel,

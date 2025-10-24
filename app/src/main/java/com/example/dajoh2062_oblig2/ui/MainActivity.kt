@@ -5,32 +5,40 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.room.Room
 import com.example.dajoh2062_oblig2.data.AppDatabase
 import com.example.dajoh2062_oblig2.repositories.PersonRepository
 import com.example.dajoh2062_oblig2.ui.navigation.MyApp
 import com.example.dajoh2062_oblig2.ui.theme.Dajoh2062_oblig2Theme
 import com.example.dajoh2062_oblig2.ui.viewmodel.PersonViewModel
+import com.example.dajoh2062_oblig2.ui.viewmodel.PersonViewModelFactory
 
 // MainActivity.kt som start MyApp(), som ligger i NavGraph.kt.
 // Der startes start-skjermbildet.
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         val db = Room.databaseBuilder(
             applicationContext,
             AppDatabase::class.java,
             "person_db"
         ).build()
+
         val repository = PersonRepository(db.personDao())
-        val viewModel= PersonViewModel(repository,application)
+        val factory = PersonViewModelFactory(repository, application)
+
         enableEdgeToEdge()
         setContent {
+            val viewModel: PersonViewModel = viewModel(factory = factory)
             Dajoh2062_oblig2Theme {
-                MyApp()
+                MyApp(sharedViewModel = viewModel)
             }
         }
     }
+}
+/*
     private val TAG = "MainActivity"
 
 
@@ -58,4 +66,5 @@ class MainActivity : ComponentActivity() {
         super.onDestroy()
         Log.d(TAG, "onDestroy")
     }
-}
+
+ */
