@@ -12,7 +12,6 @@ import com.example.dajoh2062_oblig2.repositories.PersonRepository
 import com.example.dajoh2062_oblig2.ui.navigation.MyApp
 import com.example.dajoh2062_oblig2.ui.theme.Dajoh2062_oblig2Theme
 import com.example.dajoh2062_oblig2.ui.viewmodel.PersonViewModel
-import com.example.dajoh2062_oblig2.ui.viewmodel.PersonViewModelFactory
 
 // MainActivity.kt som start MyApp(), som ligger i NavGraph.kt.
 // Der startes start-skjermbildet.
@@ -27,13 +26,14 @@ class MainActivity : ComponentActivity() {
         ).build()
 
         val repository = PersonRepository(db.personDao())
-        val factory = PersonViewModelFactory(repository, application)
+        //val factory = PersonViewModelFactory(repository, application)
+        val viewModel= PersonViewModel(repository,application)
 
         enableEdgeToEdge()
         setContent {
-            val viewModel: PersonViewModel = viewModel(factory = factory)
+
             Dajoh2062_oblig2Theme {
-                MyApp(sharedViewModel = viewModel)
+                MyApp(viewModel)
             }
         }
     }
