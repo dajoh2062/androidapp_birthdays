@@ -27,5 +27,7 @@
     <string name="enable_sms_service">Aktiver SMS-tjeneste</string>
     <string name="default_message_label">Standard bursdagsmelding</string>
     <string name="save_preferences">Lagre preferanser</string>
+    <string name="message_placeholder_hint">Du kan bruke {navn} som plassholder i meldingen. Eksempel: "Gratulerer med dagen, {navn}!"</string>
+
 
 </resources>

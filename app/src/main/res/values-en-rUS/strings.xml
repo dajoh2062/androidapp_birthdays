@@ -28,5 +28,7 @@
     <string name="enable_sms_service">Enable SMS service</string>
     <string name="default_message_label">Default birthday message</string>
     <string name="save_preferences">Save preferences</string>
+    <string name="message_placeholder_hint">You can use {navn} as a placeholder in the message. Example: "Happy birthday, {name}!"</string>
+
 
 </resources>

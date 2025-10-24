@@ -58,7 +58,6 @@ class MainActivity : ComponentActivity() {
             Log.d("Worker", "Bursdagssjekk aktivert automatisk ved oppstart")
         }
 
-        // 🧱 UI
         enableEdgeToEdge()
         setContent {
             Dajoh2062_oblig2Theme {
