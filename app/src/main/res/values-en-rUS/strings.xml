@@ -25,4 +25,8 @@
     <string name="validation_birthday">Date must be in format dd-mm-yyyy</string>
     <string name="phone_label">Phone: %1$s</string>
     <string name="birthday_label">Birthday: %1$s</string>
+    <string name="enable_sms_service">Enable SMS service</string>
+    <string name="default_message_label">Default birthday message</string>
+    <string name="save_preferences">Save preferences</string>
+
 </resources>

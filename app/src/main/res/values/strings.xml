@@ -24,4 +24,8 @@
     <string name="validation_birthday">Dato må være på formatet dd-mm-yyyy</string>
     <string name="phone_label">Telefon: %1$s</string>
     <string name="birthday_label">Fødselsdato: %1$s</string>
+    <string name="enable_sms_service">Aktiver SMS-tjeneste</string>
+    <string name="default_message_label">Standard bursdagsmelding</string>
+    <string name="save_preferences">Lagre preferanser</string>
+
 </resources>
