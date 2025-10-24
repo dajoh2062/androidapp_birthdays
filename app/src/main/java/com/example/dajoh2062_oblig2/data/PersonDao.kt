@@ -17,4 +17,8 @@ interface PersonDao {
 
     @Query("SELECT * FROM friends ORDER BY id DESC")
     fun getAllPersons(): Flow<List<Person>>
+
+    @Query("SELECT * FROM friends")
+    fun getAllPersonsDirect(): List<Person>
+
 }

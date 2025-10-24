@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import androidx.core.content.edit
+import com.example.dajoh2062_oblig2.MyApp
 
 class PreferencesViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -37,6 +38,13 @@ class PreferencesViewModel(application: Application) : AndroidViewModel(applicat
         viewModelScope.launch {
             prefs.edit { putBoolean(KEY_SMS_ENABLED, enabled) }
             _smsEnabled.value = enabled
+
+            val app = getApplication<MyApp>()
+            if (enabled) {
+                app.scheduleDailyWork(app.applicationContext)
+            } else {
+                app.cancelDailyWork(app.applicationContext)
+            }
         }
     }
 

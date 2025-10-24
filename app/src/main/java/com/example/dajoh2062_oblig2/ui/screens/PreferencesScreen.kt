@@ -1,9 +1,11 @@
 package com.example.dajoh2062_oblig2.ui.screens
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -11,6 +13,7 @@ import com.example.dajoh2062_oblig2.R
 import com.example.dajoh2062_oblig2.ui.components.SmsToggleRow
 import com.example.dajoh2062_oblig2.ui.components.MessageInputField
 import com.example.dajoh2062_oblig2.ui.viewmodel.PreferencesViewModel
+import com.example.dajoh2062_oblig2.MyApp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -25,11 +28,12 @@ fun PreferencesScreen(
     var tempEnabled by remember { mutableStateOf(smsEnabled) }
     var tempMessage by remember { mutableStateOf(messageText) }
 
+    val context = LocalContext.current
+    val app = context.applicationContext as MyApp
+
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = { Text(text = stringResource(id = R.string.preferences_title)) }
-            )
+            TopAppBar(title = { Text(text = stringResource(id = R.string.preferences_title)) })
         }
     ) { padding ->
         Column(
@@ -41,7 +45,17 @@ fun PreferencesScreen(
         ) {
             SmsToggleRow(
                 isChecked = tempEnabled,
-                onToggle = { tempEnabled = it }
+                onToggle = { isChecked ->
+                    tempEnabled = isChecked
+
+                    if (isChecked) {
+                        app.scheduleDailyWork(context)
+                        Toast.makeText(context, "Automatisk SMS aktivert", Toast.LENGTH_SHORT).show()
+                    } else {
+                        app.cancelDailyWork(context)
+                        Toast.makeText(context, "Automatisk SMS deaktivert", Toast.LENGTH_SHORT).show()
+                    }
+                }
             )
 
             MessageInputField(
@@ -69,4 +83,6 @@ fun PreferencesScreen(
         }
     }
 }
+
+
 
