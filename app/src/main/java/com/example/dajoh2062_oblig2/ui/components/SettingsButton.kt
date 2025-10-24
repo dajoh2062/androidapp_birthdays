@@ -1,12 +1,10 @@
 package com.example.dajoh2062_oblig2.ui.components
 
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.FloatingActionButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -21,15 +19,14 @@ fun SettingsButton(
     FloatingActionButton(
         onClick = onClick,
         containerColor = MaterialTheme.colorScheme.primary,
-        shape = RoundedCornerShape(16.dp),
-        modifier = modifier
-            .size(64.dp)
+        shape = RoundedCornerShape(size=16.dp),
+        modifier = modifier.size(size=64.dp)
     ) {
         Icon(
             imageVector = Icons.Default.Settings,
             contentDescription = "Settings",
             tint = MaterialTheme.colorScheme.onPrimary,
-            modifier = Modifier.size(28.dp)
+            modifier = Modifier.size(size=8.dp)
         )
     }
 }

@@ -1,11 +1,9 @@
 package com.example.dajoh2062_oblig2.ui
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.room.Room
 import com.example.dajoh2062_oblig2.data.AppDatabase
 import com.example.dajoh2062_oblig2.repositories.PersonRepository
@@ -20,51 +18,18 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         val db = Room.databaseBuilder(
-            applicationContext,
-            AppDatabase::class.java,
-            "person_db"
+            applicationContext, klass=AppDatabase::class.java, name="person_db"
         ).build()
 
-        val repository = PersonRepository(db.personDao())
-        //val factory = PersonViewModelFactory(repository, application)
+        val repository = PersonRepository(dao=db.personDao())
         val viewModel= PersonViewModel(repository,application)
 
         enableEdgeToEdge()
         setContent {
 
             Dajoh2062_oblig2Theme {
-                MyApp(viewModel)
+                MyApp(sharedViewModel=viewModel)
             }
         }
     }
 }
-/*
-    private val TAG = "MainActivity"
-
-
-    override fun onStart() {
-        super.onStart()
-        Log.d(TAG, "onStart")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        Log.d(TAG, "onResume")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        Log.d(TAG, "onPause")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.d(TAG, "onStop")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d(TAG, "onDestroy")
-    }
-
- */

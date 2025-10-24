@@ -18,15 +18,12 @@ class PersonViewModel(
     application: Application
 ) : AndroidViewModel(application) {
 
-    // Automatically collect all persons from Room and expose as a hot StateFlow
     val people: StateFlow<List<Person>> =
         repository.allFriends.stateIn(
-            viewModelScope,
-            SharingStarted.Lazily,
-            emptyList()
+            viewModelScope, started=SharingStarted.Lazily, initialValue=emptyList()
         )
 
-    var selectedPerson: Person? by mutableStateOf(null)
+    var selectedPerson: Person? by mutableStateOf(value=null)
         private set
 
     fun selectPerson(person: Person) {

@@ -6,12 +6,9 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import androidx.room.Room
@@ -37,14 +34,14 @@ fun HomeScreen(
 ) {
     val friends by viewModel.people.collectAsState()
 
-    var showDialog by remember { mutableStateOf(false) }
-    var selectedFriend by remember { mutableStateOf<Person?>(null) }
+    var showDialog by remember { mutableStateOf(value=false) }
+    var selectedFriend by remember { mutableStateOf<Person?>(value=null) }
 
     if (showDialog && selectedFriend != null) {
         ConfirmDeletionDialog(
             friendName = selectedFriend!!.name,
             onConfirm = {
-                viewModel.removePerson(selectedFriend!!)
+                viewModel.removePerson(person=selectedFriend!!)
                 showDialog = false
                 selectedFriend = null
             },
@@ -77,9 +74,9 @@ fun HomeScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(padding)
+                .padding(paddingValues=padding)
         ) {
-            Spacer(Modifier.height(16.dp))
+            Spacer(Modifier.height(height=16.dp))
             Text(
                 text = "Venner (${friends.size})",
                 style = MaterialTheme.typography.titleLarge.copy(fontSize = 24.sp),
@@ -90,9 +87,9 @@ fun HomeScreen(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(horizontal = 16.dp),
-                verticalArrangement = Arrangement.spacedBy(12.dp)
+                verticalArrangement = Arrangement.spacedBy(space=12.dp)
             ) {
-                items(friends) { friend ->
+                items(items=friends) { friend ->
                     FriendCard(
                         friend = friend,
                         onEdit = onEdit,
@@ -114,8 +111,8 @@ fun HomeScreenPreview() {
     val context = LocalContext.current
 
     val fakeRepository = remember {
-        val db = Room.inMemoryDatabaseBuilder(context, AppDatabase::class.java).build()
-        PersonRepository(db.personDao())
+        val db = Room.inMemoryDatabaseBuilder(context, klass=AppDatabase::class.java).build()
+        PersonRepository(dao=db.personDao())
     }
 
     val fakeApplication = Application()

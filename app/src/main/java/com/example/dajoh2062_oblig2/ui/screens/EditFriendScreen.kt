@@ -18,17 +18,17 @@ fun EditFriendScreen(
     val personToEdit: Person? = viewModel.selectedPerson
 
     if (personToEdit == null) {
-        Text("No person selected for editing.")
+        Text(text="No person selected for editing.")
         return
     }
 
     Scaffold(
         topBar = {
-            TopAppBar(title = { Text("Edit Friend") })
+            TopAppBar(title = { Text(text="Edit Friend") })
         }
     ) { padding ->
         FriendForm(
-            modifier = Modifier.padding(padding),
+            modifier = Modifier.padding(paddingValues=padding),
             existingPerson = personToEdit,
             onSubmit = { updatedPerson ->
                 viewModel.updatePerson(updatedPerson)

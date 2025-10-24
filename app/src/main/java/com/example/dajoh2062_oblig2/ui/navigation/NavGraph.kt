@@ -2,12 +2,10 @@ package com.example.dajoh2062_oblig2.ui.navigation
 
 
 import androidx.compose.runtime.Composable
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.dajoh2062_oblig2.data.Person
 import com.example.dajoh2062_oblig2.ui.screens.EditFriendScreen
 import com.example.dajoh2062_oblig2.ui.screens.AddFriendScreen
 import com.example.dajoh2062_oblig2.ui.screens.PreferencesScreen
@@ -29,30 +27,31 @@ fun NavigationGraph(navController: NavHostController, sharedViewModel: PersonVie
     NavHost(navController = navController, startDestination = "home")
     {
         // Navigasjonsruter til de fire skjermene i prosjektet.
-        composable("home") {
+        composable(route="home") {
             HomeScreen(
                 navController = navController,
                 viewModel = sharedViewModel,
                 onEdit = { person ->
-                    sharedViewModel.selectPerson(person)   // <--- SET selectedPerson first
-                    navController.navigate("edit")         // <--- THEN navigate
+                    sharedViewModel.selectPerson(person)
+                    navController.navigate(route="edit")
                 },
-                onAddNew = { navController.navigate("add") },
-                onSettings = { navController.navigate("preferences") }
+                onAddNew = { navController.navigate(route="add") },
+                onSettings = { navController.navigate(route="preferences") }
             )
         }
 
-        composable("preferences") {
+        composable(route="preferences") {
             PreferencesScreen(navController = navController)
         }
-        composable("edit") {
+
+        composable(route="edit") {
             EditFriendScreen(
                 navController = navController,
                 viewModel = sharedViewModel,
             )
         }
 
-        composable("add") {
+        composable(route="add") {
             AddFriendScreen(
                 navController = navController,
                 viewModel = sharedViewModel
