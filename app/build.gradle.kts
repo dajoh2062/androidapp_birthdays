@@ -79,6 +79,7 @@ dependencies {
     // Optional: layout helpers + Room
     implementation(libs.androidx.foundation.layout)
     implementation(libs.androidx.room.common.jvm)
+    implementation(libs.androidx.work.runtime.ktx)
 
     // Tests
     testImplementation(libs.junit)

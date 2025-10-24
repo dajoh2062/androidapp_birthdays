@@ -10,15 +10,20 @@ import androidx.navigation.NavController
 import com.example.dajoh2062_oblig2.R
 import com.example.dajoh2062_oblig2.ui.components.SmsToggleRow
 import com.example.dajoh2062_oblig2.ui.components.MessageInputField
+import com.example.dajoh2062_oblig2.ui.viewmodel.PreferencesViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PreferencesScreen(
     navController: NavController,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: PreferencesViewModel
 ) {
-    var smsEnabled by remember { mutableStateOf(value = false) }
-    var messageText by remember { mutableStateOf(value = "Gratulerer med dagen!") }
+    val smsEnabled by viewModel.smsEnabled.collectAsState()
+    val messageText by viewModel.defaultMessage.collectAsState()
+
+    var tempEnabled by remember { mutableStateOf(smsEnabled) }
+    var tempMessage by remember { mutableStateOf(messageText) }
 
     Scaffold(
         topBar = {
@@ -32,21 +37,22 @@ fun PreferencesScreen(
                 .padding(paddingValues = padding)
                 .fillMaxSize()
                 .padding(all = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(space = 20.dp)
+            verticalArrangement = Arrangement.spacedBy(20.dp)
         ) {
             SmsToggleRow(
-                isChecked = smsEnabled,
-                onToggle = { smsEnabled = it }
+                isChecked = tempEnabled,
+                onToggle = { tempEnabled = it }
             )
 
             MessageInputField(
-                messageText = messageText,
-                onMessageChange = { messageText = it }
+                messageText = tempMessage,
+                onMessageChange = { tempMessage = it }
             )
 
             Button(
                 onClick = {
-                    // TODO: Save to DataStore / SharedPreferences later
+                    viewModel.setSmsEnabled(tempEnabled)
+                    viewModel.setDefaultMessage(tempMessage)
                     navController.popBackStack()
                 },
                 modifier = Modifier.fillMaxWidth()
@@ -63,3 +69,4 @@ fun PreferencesScreen(
         }
     }
 }
+

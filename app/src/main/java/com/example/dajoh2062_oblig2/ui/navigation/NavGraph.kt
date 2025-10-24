@@ -2,6 +2,7 @@ package com.example.dajoh2062_oblig2.ui.navigation
 
 
 import androidx.compose.runtime.Composable
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -11,6 +12,7 @@ import com.example.dajoh2062_oblig2.ui.screens.AddFriendScreen
 import com.example.dajoh2062_oblig2.ui.screens.PreferencesScreen
 import com.example.dajoh2062_oblig2.ui.screens.HomeScreen
 import com.example.dajoh2062_oblig2.ui.viewmodel.PersonViewModel
+import com.example.dajoh2062_oblig2.ui.viewmodel.PreferencesViewModel
 
 // Navigasjonsgraf for applikasjonen. Inneholder alle skjermbildene og rutene deres.
 // Bruker NavHostController til å navigere mellom skjermbildene, som vist i canvas materialet.
@@ -40,10 +42,13 @@ fun NavigationGraph(navController: NavHostController, sharedViewModel: PersonVie
             )
         }
 
-        composable(route="preferences") {
-            PreferencesScreen(navController = navController)
+        composable(route = "preferences") {
+            val preferencesViewModel: PreferencesViewModel = viewModel()
+            PreferencesScreen(
+                navController = navController,
+                viewModel = preferencesViewModel
+            )
         }
-
         composable(route="edit") {
             EditFriendScreen(
                 navController = navController,
