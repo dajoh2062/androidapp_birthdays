@@ -12,6 +12,18 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
+/*
+Denne ViewModel-en håndterer brukerens innstillinger for SMS-tjenesten,
+og fungerer som et lag mellom "PreferencesScreen" og
+"SharedPreferences". Den lagrer og henter to verdier: om SMS-tjenesten
+er aktivert ("sms_enabled") og hvilken standardmelding som skal brukes
+("default_message"). Når brukeren endrer innstillingene, oppdateres
+verdiene både i minnet via "MutableStateFlow" og permanent i
+"SharedPreferences". Når SMS aktiveres, startes den planlagte
+"WorkManager"-jobben via "MyApp.scheduleDailyWork()", og når den
+deaktiveres, stoppes den igjen.
+ */
+
 class PreferencesViewModel(application: Application) : AndroidViewModel(application) {
 
     companion object {
@@ -34,6 +46,7 @@ class PreferencesViewModel(application: Application) : AndroidViewModel(applicat
     )
     val defaultMessage: StateFlow<String> get() = _defaultMessage
 
+    // Oppdaterer lagret status for SMS-tjenesten og starter/stopp WorkManager-jobben
     fun setSmsEnabled(enabled: Boolean) {
         viewModelScope.launch {
             prefs.edit { putBoolean(KEY_SMS_ENABLED, enabled) }
@@ -47,7 +60,7 @@ class PreferencesViewModel(application: Application) : AndroidViewModel(applicat
             }
         }
     }
-
+    // Oppdaterer standardmelding og lagrer den i SharedPreferences
     fun setDefaultMessage(message: String) {
         viewModelScope.launch {
             prefs.edit { putString(KEY_DEFAULT_MESSAGE, message) }

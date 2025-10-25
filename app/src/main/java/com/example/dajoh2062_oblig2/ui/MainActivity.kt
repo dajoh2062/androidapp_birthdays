@@ -17,6 +17,16 @@ import com.example.dajoh2062_oblig2.ui.navigation.MyApp
 import com.example.dajoh2062_oblig2.ui.theme.Dajoh2062_oblig2Theme
 import com.example.dajoh2062_oblig2.ui.viewmodel.PersonViewModel
 
+/*
+Denne klassen er appens hovedinngangspunkt og håndterer oppstart av
+databasen, ViewModel og UI-et. Her settes Room-databasen opp via
+"AppDatabase" og "PersonRepository", og en "PersonViewModel" opprettes
+for å dele data mellom skjermene. Klassen sjekker også om brukeren har
+gitt tillatelse til å sende SMS. Hvis ikke, vises en systemdialog som
+ber om tillatelse. Når appen starter, sjekkes "SharedPreferences" for
+om SMS-tjenesten tidligere ble aktivert. Til slutt initialiseres hele UI-et
+gjennom "MyApp()", som definerer navigasjonen og skjermstrukturen.
+ */
 class MainActivity : ComponentActivity() {
     private val beOmSmstillatelse = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
@@ -31,6 +41,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // Oppretter databasen og repository for å koble til ViewModel
         val db = Room.databaseBuilder(
             applicationContext,
             AppDatabase::class.java,
@@ -40,6 +51,7 @@ class MainActivity : ComponentActivity() {
         val repository = PersonRepository(db.personDao())
         val viewModel = PersonViewModel(repository, application)
 
+        // Sjekker og ber eventuelt om SMS-tillatelse fra brukeren
         if (ContextCompat.checkSelfPermission(
                 this,
                 Manifest.permission.SEND_SMS
@@ -55,7 +67,7 @@ class MainActivity : ComponentActivity() {
             (application as MyApp).scheduleDailyWork(applicationContext)
             Log.d("Worker", "Bursdagssjekk aktivert automatisk ved oppstart")
         }
-
+        // Starter Jetpack Compose-grensesnittet
         enableEdgeToEdge()
         setContent {
             Dajoh2062_oblig2Theme {

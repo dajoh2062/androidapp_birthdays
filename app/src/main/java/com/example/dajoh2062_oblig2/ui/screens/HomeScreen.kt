@@ -25,6 +25,16 @@ import com.example.dajoh2062_oblig2.ui.viewmodel.PersonViewModel
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 
+/*
+Denne skjermen er appens startside og viser alle vennene som er lagret i
+databasen. Den fungerer som hovednoden i navigasjonen og kobler sammen
+UI-komponentene, databasen og navigasjonsflyten. Ved oppstart henter
+den automatisk alle personer via "PersonViewModel", som igjen får data
+fra Room-databasen gjennom "PersonRepository". Brukeren kan legge til
+nye venner, redigere eksisterende, slette dem, eller gå til
+innstillingsskjermen for SMS-oppsett.
+ */
+
 @Composable
 fun HomeScreen(
     navController: NavController,
@@ -36,6 +46,8 @@ fun HomeScreen(
 ) {
     val friends by viewModel.people.collectAsState()
 
+    // Dialog og valgt venn styres med remember, slik at UI kan oppdateres
+    // reaktivt når brukeren trykker på "Slett" i et FriendCard.
     var showDialog by remember { mutableStateOf(value = false) }
     var selectedFriend by remember { mutableStateOf<Person?>(value = null) }
 
@@ -84,7 +96,7 @@ fun HomeScreen(
                 style = MaterialTheme.typography.titleLarge.copy(fontSize = 24.sp),
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp)
             )
-
+            // Viser alle venner fra databasen i en LazyColumn med mellomrom
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
@@ -110,7 +122,7 @@ fun HomeScreen(
 @Composable
 fun HomeScreenPreview() {
     val context = LocalContext.current
-
+    // Lager en midlertidig in-memory database for å kunne vise forhåndsvisning
     val fakeRepository = remember {
         val db = Room.inMemoryDatabaseBuilder(
             context = context,
