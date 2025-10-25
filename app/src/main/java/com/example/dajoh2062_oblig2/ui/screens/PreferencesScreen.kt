@@ -51,10 +51,8 @@ fun PreferencesScreen(
                 onToggle = { isChecked ->
                     tempEnabled = isChecked
                     if (isChecked) {
-                        // Schedule daily background job
                         app.scheduleDailyWork(context)
 
-                        // Immediately trigger a one-time birthday check
                         val immediateWork = OneTimeWorkRequestBuilder<BirthdayWorker>().build()
                         WorkManager.getInstance(context).enqueue(immediateWork)
 
@@ -64,7 +62,6 @@ fun PreferencesScreen(
                             Toast.LENGTH_SHORT
                         ).show()
                     } else {
-                        // Cancel any scheduled background work
                         app.cancelDailyWork(context)
                         Toast.makeText(
                             context,

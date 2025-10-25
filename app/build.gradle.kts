@@ -48,20 +48,15 @@ kotlin {
     }
 }
 dependencies {
-    // ROOM dependencies
     val room_version = "2.8.3"
     implementation("androidx.room:room-runtime:$room_version")
     ksp("androidx.room:room-compiler:$room_version")
     implementation("androidx.room:room-ktx:${room_version}")
 
-    // Core
-    implementation(libs.androidx.core.ktx)
 
-    // Lifecycle + ViewModel
+    implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
-
-    // Compose core
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.graphics)
@@ -70,18 +65,11 @@ dependencies {
     implementation(libs.androidx.material3)
     debugImplementation(libs.androidx.compose.ui.tooling)
     implementation(libs.androidx.compose.material.icons.extended)
-
-
-    // Navigation + Activity
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.navigation.compose)
-
-    // Optional: layout helpers + Room
     implementation(libs.androidx.foundation.layout)
     implementation(libs.androidx.room.common.jvm)
     implementation(libs.androidx.work.runtime.ktx)
-
-    // Tests
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

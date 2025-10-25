@@ -1,8 +1,6 @@
 package com.example.dajoh2062_oblig2.ui.viewmodel
 
 import android.app.Application
-import android.telephony.SmsManager
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue

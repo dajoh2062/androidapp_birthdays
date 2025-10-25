@@ -22,7 +22,6 @@ class BirthdayWorker(context: Context, workerParams: WorkerParameters) : Worker(
 
         val today = SimpleDateFormat("dd-MM", Locale.getDefault()).format(Date())
 
-        // Read default message set by user; fallback to strings.xml
         val prefs = applicationContext.getSharedPreferences("app_preferences", Context.MODE_PRIVATE)
         val defaultMessage = prefs.getString(
             "default_message",
@@ -33,10 +32,15 @@ class BirthdayWorker(context: Context, workerParams: WorkerParameters) : Worker(
             SmsManager.getDefaultSmsSubscriptionId()
         )
 
+        /*
+        val smsManager = applicationContext
+        .getSystemService(SmsManager::class.java)
+        .createForSubscriptionId(subId)
+         */
+
         var sent = 0
         friends.forEach { friend ->
             if (friend.birthday.take(5) == today) {
-                // Support both {navn} and {name} placeholders
                 val message = defaultMessage
                     .replace("{navn}", friend.name)
                     .replace("{name}", friend.name)

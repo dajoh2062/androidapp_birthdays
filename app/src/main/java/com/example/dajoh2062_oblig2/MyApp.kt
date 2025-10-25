@@ -1,6 +1,5 @@
 package com.example.dajoh2062_oblig2
 
-
 import android.app.Application
 import android.content.Context
 import androidx.work.*
@@ -9,10 +8,8 @@ import java.util.concurrent.TimeUnit
 
 class MyApp : Application() {
 
-    // Schedules the daily birthday check
     fun scheduleDailyWork(context: Context) {
-        val workRequest = PeriodicWorkRequestBuilder<BirthdayWorker>(
-            1, TimeUnit.DAYS
+        val workRequest = PeriodicWorkRequestBuilder<BirthdayWorker>(repeatInterval=1, repeatIntervalTimeUnit=TimeUnit.DAYS
         )
             .setConstraints(
                 Constraints.Builder()
@@ -21,15 +18,13 @@ class MyApp : Application() {
             )
             .build()
 
-        WorkManager.getInstance(context).enqueueUniquePeriodicWork(
-            "Daglig bursdagssjekk",
+        WorkManager.getInstance(context).enqueueUniquePeriodicWork(uniqueWorkName="Daglig bursdagssjekk",
             ExistingPeriodicWorkPolicy.KEEP,
             workRequest
         )
     }
 
-    // Cancels the background work
     fun cancelDailyWork(context: Context) {
-        WorkManager.getInstance(context).cancelUniqueWork("Daglig bursdagssjekk")
+        WorkManager.getInstance(context).cancelUniqueWork(uniqueWorkName="Daglig bursdagssjekk")
     }
 }

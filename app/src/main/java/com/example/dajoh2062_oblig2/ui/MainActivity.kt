@@ -40,7 +40,6 @@ class MainActivity : ComponentActivity() {
         val repository = PersonRepository(db.personDao())
         val viewModel = PersonViewModel(repository, application)
 
-        // 📱 Check SMS permission
         if (ContextCompat.checkSelfPermission(
                 this,
                 Manifest.permission.SEND_SMS
@@ -51,7 +50,6 @@ class MainActivity : ComponentActivity() {
             beOmSmstillatelse.launch(Manifest.permission.SEND_SMS)
         }
 
-        // ✅ Automatically start background birthday checks if user enabled SMS previously
         val prefs = getSharedPreferences("app_preferences", MODE_PRIVATE)
         if (prefs.getBoolean("sms_enabled", false)) {
             (application as MyApp).scheduleDailyWork(applicationContext)
