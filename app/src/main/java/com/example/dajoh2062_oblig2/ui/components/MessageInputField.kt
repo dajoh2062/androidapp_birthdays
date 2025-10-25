@@ -7,6 +7,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.example.dajoh2062_oblig2.R
 
+/*
+Et enkelt tekstfelt for å skrive inn en melding.
+Komponenten håndterer tekstendringer via onMessageChange-funksjonen, slik at
+teksten kan lagres som state i et høyere nivå (for eksempel i en ViewModel
+eller en annen Composable).
+ */
+
 @Composable
 fun MessageInputField(
     messageText: String,

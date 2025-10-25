@@ -9,7 +9,15 @@ import androidx.navigation.NavController
 import com.example.dajoh2062_oblig2.R
 import com.example.dajoh2062_oblig2.ui.components.FriendForm
 import com.example.dajoh2062_oblig2.ui.viewmodel.PersonViewModel
+/*
+ Skjermen bruker "FriendForm"-komponenten til å hente inn
+informasjon som navn, telefonnummer og bursdag. Når brukeren trykker
+"Legg til", kalles "onSubmit", som sender dataen videre til
+"PersonViewModel" der vennen lagres i Room-databasen. Etterpå går
+navigasjonen automatisk tilbake til hjemmeskjermen.
+ */
 
+// Må bruke @OptIn tydeligvis siden topbar var eksperimentelt.
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddFriendScreen(
@@ -29,6 +37,8 @@ fun AddFriendScreen(
             onSubmit = { newPerson ->
                 viewModel.addPerson(newPerson)
                 navController.popBackStack()
+                // navigerer tilbake til "HomeScreen" som eksisterer allerede, istedenfor
+                       // å for eksempel navigere til ett nytt instans av skjermen.
             },
             onCancel = { navController.popBackStack() }
         )

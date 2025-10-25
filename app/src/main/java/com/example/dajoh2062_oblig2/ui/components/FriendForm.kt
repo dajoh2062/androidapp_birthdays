@@ -9,6 +9,15 @@ import androidx.compose.ui.unit.dp
 import com.example.dajoh2062_oblig2.R
 import com.example.dajoh2062_oblig2.data.Person
 
+/*
+FriendForm håndterer logikken for både å legge til og redigere en venn.
+Skjemaet initialiseres med eksisterende verdier hvis det er redigering, og
+bruker Compose state til å holde på input og valideringsfeil. Når brukeren
+trykker "Lagre"/"Legg til", valideres feltene med regex for navn, telefonnummer
+og fødselsdato. Bare hvis alt er gyldig, bygges et Person-objekt (enten nytt eller
+oppdatert) og sendes ut via onSubmit-funksjonen.
+*/
+
 @Composable
 fun FriendForm(
     modifier: Modifier = Modifier,
@@ -16,6 +25,8 @@ fun FriendForm(
     onSubmit: (Person) -> Unit,
     onCancel: () -> Unit
 ) {
+    // Deklarerer variabler som skal brukes med remember state, måtte også legge til
+    // stringresourcene  her for at det skulle fungere.
     var name by remember { mutableStateOf(value = existingPerson?.name ?: "") }
     var phone by remember { mutableStateOf(value = existingPerson?.phone ?: "") }
     var birthday by remember { mutableStateOf(value = existingPerson?.birthday ?: "") }
@@ -32,16 +43,19 @@ fun FriendForm(
     fun validateInput(): Boolean {
         var isValid = true
 
+        // Sjekker at navnet kun består av bokstaver og mellomrom
         if (!Regex("^[A-Za-zÆØÅæøå ]+$").matches(name.trim())) {
             nameError = validationName
             isValid = false
         } else nameError = null
 
+        // Telefonnummer må være minst 8 siffer
         if (!Regex("^\\d{8,}$").matches(phone.trim())) {
             phoneError = validationPhone
             isValid = false
         } else phoneError = null
 
+        // Dato må følge formatet DD-MM-YYYY
         if (!Regex("^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[0-2])-(\\d{4})$")
                 .matches(birthday.trim())
         ) {

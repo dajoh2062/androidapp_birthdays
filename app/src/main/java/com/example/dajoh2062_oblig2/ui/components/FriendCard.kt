@@ -20,6 +20,13 @@ import androidx.compose.ui.unit.dp
 import com.example.dajoh2062_oblig2.R
 import com.example.dajoh2062_oblig2.data.Person
 
+/*
+Igjen så sendes on___ inn som parameter, i tilegg til person objekt. Kunne separert denne til flere
+composables, men var mest intuitivt å lage den slik. Bruker stringresource og modifier for innholdet.
+Kortet inkluderer også to knapper "Rediger" og "Slett", som lar brukeren utføre
+handlinger.
+ */
+
 @Composable
 fun FriendCard(
     friend: Person,

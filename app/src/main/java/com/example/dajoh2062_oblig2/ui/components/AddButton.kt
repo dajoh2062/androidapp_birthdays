@@ -13,9 +13,17 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.dajoh2062_oblig2.R
 
+/*
+AddButton brukes i hjemsiden for å kunne legge til nye venner i listen til brukeren. Teknisk
+så fungerer den ved å bruke viewmodel til å kalle repostory funksjonen, som legger inn
+persondetaljene som blir skrevet inn (hvis de støtter formatet). Istedenfor tekst valgte jeg ett
+pluss-icon, for moderne og intuitivt design. Størrelse osv. er likt som settingsbutton.
+ */
+
 @Composable
 fun AddButton(
     modifier: Modifier = Modifier,
+    // onclick funksjonen som parameter, defineres ved bruk av composable.
     onClick: () -> Unit
 ) {
     FloatingActionButton(

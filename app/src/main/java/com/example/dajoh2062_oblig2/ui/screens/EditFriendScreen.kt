@@ -11,6 +11,17 @@ import com.example.dajoh2062_oblig2.data.Person
 import com.example.dajoh2062_oblig2.ui.components.FriendForm
 import com.example.dajoh2062_oblig2.ui.viewmodel.PersonViewModel
 
+/*
+Skjermen åpnes fra "HomeScreen" når
+brukeren trykker "Rediger" på et "FriendCard". Den henter først den
+valgte personen fra "PersonViewModel" via "selectedPerson". Dersom ingen
+person er valgt, vises en enkel tekstmelding. Ellers fylles
+"FriendForm"-komponenten med eksisterende data, slik at brukeren kan
+endre navn, telefon eller bursdag. Når skjemaet sendes inn, oppdateres
+personen i databasen og skjermen navigerer tilbake til startsiden.
+ */
+
+// Må bruke @OptIn her også pga. topbar.
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EditFriendScreen(
@@ -19,6 +30,8 @@ fun EditFriendScreen(
 ) {
     val personToEdit: Person? = viewModel.selectedPerson
 
+    // Dersom ingen person er valgt, vis en enkel tekstmelding. Skal ikek være mulig for
+    // brukeren å komme til dette stadiet.
     if (personToEdit == null) {
         Text(text = stringResource(id = R.string.no_person_selected))
         return
@@ -33,7 +46,7 @@ fun EditFriendScreen(
     ) { padding ->
         FriendForm(
             modifier = Modifier.padding(paddingValues = padding),
-            existingPerson = personToEdit,
+            existingPerson = personToEdit, // fyller inn detaljene
             onSubmit = { updatedPerson ->
                 viewModel.updatePerson(updatedPerson)
                 viewModel.clearSelection()
@@ -42,6 +55,7 @@ fun EditFriendScreen(
             onCancel = {
                 viewModel.clearSelection()
                 navController.popBackStack()
+                // tilbake til hjemskjermen uten å lage ett nytt instans over.
             }
         )
     }

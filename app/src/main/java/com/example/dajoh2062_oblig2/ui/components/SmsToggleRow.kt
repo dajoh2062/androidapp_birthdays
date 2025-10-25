@@ -11,6 +11,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.example.dajoh2062_oblig2.R
 
+/*
+Når brukeren slår bryteren på, trigges "onToggle", som i "PreferencesScreen" kaller funksjoner i
+"PreferencesViewModel" for å oppdatere SharedPreferences og starte "WorkManager" som kjører
+"BirthdayWorker" daglig. Når bryteren slås av, kanselleres den planlagte jobben. Denne raden
+fungerer dermed som en direkte kobling mellom brukerens valg i grensesnittet og logikken som styrer
+SMS-varslingene i bakgrunnen.
+ */
 @Composable
 fun SmsToggleRow(
     isChecked: Boolean,

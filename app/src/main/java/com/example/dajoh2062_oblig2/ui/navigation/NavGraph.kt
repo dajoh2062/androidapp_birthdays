@@ -16,6 +16,7 @@ import com.example.dajoh2062_oblig2.ui.viewmodel.PreferencesViewModel
 
 // Navigasjonsgraf for applikasjonen. Inneholder alle skjermbildene og rutene deres.
 // Bruker NavHostController til å navigere mellom skjermbildene, som vist i canvas materialet.
+// Viewmodelene brukes også som parametere her.
 
 @Composable
 fun MyApp(sharedViewModel: PersonViewModel) {
