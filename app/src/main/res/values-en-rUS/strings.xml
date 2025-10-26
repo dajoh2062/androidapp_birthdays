@@ -32,6 +32,9 @@
     <string name="toast_sms_enabled">Automatic SMS enabled</string>
     <string name="toast_sms_disabled">Automatic SMS disabled</string>
     <string name="default_message">Happy birthday, {name}!</string>
+    <string name="message_placeholder">Example: Happy birthday {name}!</string>
+    <string name="message_hint">{{name}} or {{navn}} will automatically be replaced with the friend's name</string>
+
 
 
 </resources>

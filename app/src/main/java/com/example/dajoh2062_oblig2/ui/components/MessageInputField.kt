@@ -1,5 +1,6 @@
 package com.example.dajoh2062_oblig2.ui.components
 
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -24,6 +25,14 @@ fun MessageInputField(
         value = messageText,
         onValueChange = onMessageChange,
         label = { Text(text = stringResource(id = R.string.default_message_label)) },
+        placeholder = { Text(text = stringResource(id = R.string.message_placeholder)) },
+        supportingText = {
+            Text(
+                text = stringResource(id = R.string.message_hint),
+                style = MaterialTheme.typography.bodySmall
+            )
+        },
         modifier = modifier
     )
 }
+
