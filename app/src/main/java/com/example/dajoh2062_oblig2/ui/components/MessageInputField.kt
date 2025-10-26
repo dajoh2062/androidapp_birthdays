@@ -24,15 +24,14 @@ fun MessageInputField(
     OutlinedTextField(
         value = messageText,
         onValueChange = onMessageChange,
-        label = { Text(text = stringResource(id = R.string.default_message_label)) },
-        placeholder = { Text(text = stringResource(id = R.string.message_placeholder)) },
+        label = { Text(text = "Default birthday message") },
+        placeholder = { Text(text = "Example: Happy birthday {name}!") },
         supportingText = {
             Text(
-                text = stringResource(id = R.string.message_hint),
+                text = "{name} or {navn} will automatically be replaced with the friend's name",
                 style = MaterialTheme.typography.bodySmall
             )
         },
         modifier = modifier
     )
 }
-
